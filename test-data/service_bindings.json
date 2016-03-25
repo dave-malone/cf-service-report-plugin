@@ -1,0 +1,31 @@
+{
+   "total_results": 1,
+   "total_pages": 1,
+   "prev_url": null,
+   "next_url": null,
+   "resources": [
+      {
+         "metadata": {
+            "guid": "b220678e-6b4e-4002-a144-0a3bd4308ea3",
+            "url": "/v2/service_bindings/b220678e-6b4e-4002-a144-0a3bd4308ea3",
+            "created_at": "2015-10-30T16:17:51Z",
+            "updated_at": null
+         },
+         "entity": {
+            "app_guid": "465232c2-17b2-43e8-8bb8-dadbd6bb6c1a",
+            "service_instance_guid": "ec8756bd-97fb-4ccd-a809-651e362e39fd",
+            "credentials": {
+               "oracleUri": "jdbc:oracle:thin:@testhost:1521:testdb",
+               "password": "pa55woRD",
+               "username": "admin"
+            },
+            "binding_options": {},
+            "gateway_data": null,
+            "gateway_name": "",
+            "syslog_drain_url": "",
+            "app_url": "/v2/apps/465232c2-17b2-43e8-8bb8-dadbd6bb6c1a",
+            "service_instance_url": "/v2/user_provided_service_instances/ec8756bd-97fb-4ccd-a809-651e362e39fd"
+         }
+      }
+   ]
+}

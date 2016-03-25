@@ -1,0 +1,388 @@
+{
+   "total_results": 19,
+   "total_pages": 1,
+   "prev_url": null,
+   "next_url": null,
+   "resources": [
+      {
+         "metadata": {
+            "guid": "98df4ed3-3643-45fd-8bf3-564eb2c7007e",
+            "url": "/v2/service_plans/98df4ed3-3643-45fd-8bf3-564eb2c7007e",
+            "created_at": "2015-05-06T06:23:46Z",
+            "updated_at": "2016-03-24T19:05:12Z"
+         },
+         "entity": {
+            "name": "bronze",
+            "free": true,
+            "description": "Less resource intensive, this plan monitors and scales applications every 5 minutes",
+            "service_guid": "739405f7-6846-4965-9ae9-c18e0eeb90c4",
+            "extra": "{\"bullets\":[\"Less resource-intensive\",\"Monitors app load every 5 minutes\",\"Scales your app up and down according to user-provided load parameters\",\"Scaling rules can be created for one-time events in the future\",\"Create weekly recurring scaling rules to keep costs low\",\"Configure via the service management dashboard\"],\"costs\":[{\"amount\":{\"usd\":0.0},\"unit\":\"MONTHLY\"}],\"displayName\":\"Bronze\"}",
+            "unique_id": "e4518390-ab55-412c-b22c-55c31f25db90",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/739405f7-6846-4965-9ae9-c18e0eeb90c4",
+            "service_instances_url": "/v2/service_plans/98df4ed3-3643-45fd-8bf3-564eb2c7007e/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "0fb9b07f-90f9-41b7-9899-fc132e0725ec",
+            "url": "/v2/service_plans/0fb9b07f-90f9-41b7-9899-fc132e0725ec",
+            "created_at": "2015-05-06T06:23:46Z",
+            "updated_at": "2016-03-24T19:05:12Z"
+         },
+         "entity": {
+            "name": "gold",
+            "free": true,
+            "description": "The closest to real-time, this plan monitors and scales applications every 30 seconds",
+            "service_guid": "739405f7-6846-4965-9ae9-c18e0eeb90c4",
+            "extra": "{\"bullets\":[\"Closest to real-time\",\"Monitors app load every 30 seconds\",\"Scales your app up and down according to user-provided load parameters\",\"Scaling rules can be created for one-time events in the future\",\"Create weekly recurring scaling rules to keep costs low\",\"Configure via the service management dashboard\"],\"costs\":[{\"amount\":{\"usd\":0.0},\"unit\":\"MONTHLY\"}],\"displayName\":\"Gold\"}",
+            "unique_id": "c23833b3-fe27-4e30-aa72-ecffc7257b70",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/739405f7-6846-4965-9ae9-c18e0eeb90c4",
+            "service_instances_url": "/v2/service_plans/0fb9b07f-90f9-41b7-9899-fc132e0725ec/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "5aff451a-37a4-4ec5-bf36-b5ec7dcff919",
+            "url": "/v2/service_plans/5aff451a-37a4-4ec5-bf36-b5ec7dcff919",
+            "created_at": "2015-05-06T07:56:53Z",
+            "updated_at": "2016-03-24T19:44:02Z"
+         },
+         "entity": {
+            "name": "100mb-dev",
+            "free": true,
+            "description": "Shared MySQL Server",
+            "service_guid": "ff995dfb-a8ce-43f5-b604-6818f4daf4b7",
+            "extra": "{\"costs\":[{\"amount\":{\"usd\":0.0},\"unit\":\"MONTH\"}],\"bullets\":[\"Shared MySQL Server\",\"100 MB storage\",\"40 concurrent connections\"],\"displayName\":\"100mb-dev\"}",
+            "unique_id": "17d793e6-6da6-4f0e-b58d-364a407166a0",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/ff995dfb-a8ce-43f5-b604-6818f4daf4b7",
+            "service_instances_url": "/v2/service_plans/5aff451a-37a4-4ec5-bf36-b5ec7dcff919/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "3031103d-c1bb-4f20-97dd-2491e017f602",
+            "url": "/v2/service_plans/3031103d-c1bb-4f20-97dd-2491e017f602",
+            "created_at": "2015-05-12T22:26:30Z",
+            "updated_at": "2015-08-11T17:31:00Z"
+         },
+         "entity": {
+            "name": "shared-vm",
+            "free": true,
+            "description": "This plan provides a single Redis process on a shared VM, which is suitable for development and testing workloads",
+            "service_guid": "7eafb6d0-efba-4dc6-922f-6417fd61b1b1",
+            "extra": "{\"bullets\":[\"Each instance shares the same VM\",\"Single dedicated Redis process\",\"Suitable for development & testing workloads\"],\"displayName\":\"Shared-VM\"}",
+            "unique_id": "C210CA06-E7E5-4F5D-A5AA-7A2C51CC290E",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/7eafb6d0-efba-4dc6-922f-6417fd61b1b1",
+            "service_instances_url": "/v2/service_plans/3031103d-c1bb-4f20-97dd-2491e017f602/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "0033ea56-24fd-407e-a1bf-50be29bff504",
+            "url": "/v2/service_plans/0033ea56-24fd-407e-a1bf-50be29bff504",
+            "created_at": "2015-05-12T22:26:30Z",
+            "updated_at": "2015-08-11T17:31:00Z"
+         },
+         "entity": {
+            "name": "dedicated-vm",
+            "free": true,
+            "description": "This plan provides a single Redis process on a dedicated VM, which is suitable for production workloads",
+            "service_guid": "7eafb6d0-efba-4dc6-922f-6417fd61b1b1",
+            "extra": "{\"bullets\":[\"Dedicated VM per instance\",\"Single dedicated Redis process\",\"Suitable for production workloads\"],\"displayName\":\"Dedicated-VM\"}",
+            "unique_id": "74E8984C-5F8C-11E4-86BE-07807B3B2589",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/7eafb6d0-efba-4dc6-922f-6417fd61b1b1",
+            "service_instances_url": "/v2/service_plans/0033ea56-24fd-407e-a1bf-50be29bff504/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "dd01ba87-b51c-4b26-90e9-7b9b0ba28f19",
+            "url": "/v2/service_plans/dd01ba87-b51c-4b26-90e9-7b9b0ba28f19",
+            "created_at": "2015-08-05T20:37:25Z",
+            "updated_at": "2015-08-10T23:27:18Z"
+         },
+         "entity": {
+            "name": "SessionReplication",
+            "free": true,
+            "description": "Dedicated GemFire instance for storing HTTP session state.",
+            "service_guid": "a0b416e9-dd5a-4608-84a9-76e23d980f64",
+            "extra": "{\"bullets\":[],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"N/A\"}]}",
+            "unique_id": "ssc-service",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/a0b416e9-dd5a-4608-84a9-76e23d980f64",
+            "service_instances_url": "/v2/service_plans/dd01ba87-b51c-4b26-90e9-7b9b0ba28f19/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "7a3a9498-dbc7-45f3-bdd9-1cf2c3bf0c3d",
+            "url": "/v2/service_plans/7a3a9498-dbc7-45f3-bdd9-1cf2c3bf0c3d",
+            "created_at": "2015-08-11T00:18:13Z",
+            "updated_at": "2015-08-11T00:18:13Z"
+         },
+         "entity": {
+            "name": "development",
+            "free": true,
+            "description": "This provisions a single Neo4j process suitable for development workloads.",
+            "service_guid": "ced0cbe6-ebd6-4ccf-a436-dfac7547cbf2",
+            "extra": "{\"displayName\":\"Development\",\"bullets\":[\"Provisions a single Neo4j process, suitable for development workloads.\"]}",
+            "unique_id": "6A42E2FF-E711-456C-A317-56C6AA648A33",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/ced0cbe6-ebd6-4ccf-a436-dfac7547cbf2",
+            "service_instances_url": "/v2/service_plans/7a3a9498-dbc7-45f3-bdd9-1cf2c3bf0c3d/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "87fec825-930f-4e63-9aa9-e3997249cace",
+            "url": "/v2/service_plans/87fec825-930f-4e63-9aa9-e3997249cace",
+            "created_at": "2015-08-12T04:55:03Z",
+            "updated_at": "2016-03-24T19:18:38Z"
+         },
+         "entity": {
+            "name": "Small",
+            "free": true,
+            "description": "Small",
+            "service_guid": "3fda87d0-3680-43d5-aa1f-6916d33c1f6a",
+            "extra": "{\"bullets\":[\"2 locators\",\"3 servers\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"N/A\"}]}",
+            "unique_id": "gf-plan-1",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/3fda87d0-3680-43d5-aa1f-6916d33c1f6a",
+            "service_instances_url": "/v2/service_plans/87fec825-930f-4e63-9aa9-e3997249cace/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "26857481-91fa-4222-b7b9-f252ace0289a",
+            "url": "/v2/service_plans/26857481-91fa-4222-b7b9-f252ace0289a",
+            "created_at": "2015-08-12T04:55:03Z",
+            "updated_at": "2016-03-24T19:18:38Z"
+         },
+         "entity": {
+            "name": "Medium",
+            "free": true,
+            "description": "Medium (not available)",
+            "service_guid": "3fda87d0-3680-43d5-aa1f-6916d33c1f6a",
+            "extra": "{\"bullets\":[\"2 locators\",\"5 servers\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"N/A\"}]}",
+            "unique_id": "gf-plan-2",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/3fda87d0-3680-43d5-aa1f-6916d33c1f6a",
+            "service_instances_url": "/v2/service_plans/26857481-91fa-4222-b7b9-f252ace0289a/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "c7a82213-6f7a-46e1-9f78-ebd0a827fbd9",
+            "url": "/v2/service_plans/c7a82213-6f7a-46e1-9f78-ebd0a827fbd9",
+            "created_at": "2015-08-12T04:55:03Z",
+            "updated_at": "2016-03-24T19:18:38Z"
+         },
+         "entity": {
+            "name": "Large",
+            "free": true,
+            "description": "Large (not available)",
+            "service_guid": "3fda87d0-3680-43d5-aa1f-6916d33c1f6a",
+            "extra": "{\"bullets\":[\"2 locators\",\"7 servers\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"N/A\"}]}",
+            "unique_id": "gf-plan-3",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/3fda87d0-3680-43d5-aa1f-6916d33c1f6a",
+            "service_instances_url": "/v2/service_plans/c7a82213-6f7a-46e1-9f78-ebd0a827fbd9/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "046a2d1a-0f5c-4824-b9f2-d255f8ec5eb9",
+            "url": "/v2/service_plans/046a2d1a-0f5c-4824-b9f2-d255f8ec5eb9",
+            "created_at": "2015-08-17T22:12:17Z",
+            "updated_at": "2016-03-24T19:35:15Z"
+         },
+         "entity": {
+            "name": "multi-tenant",
+            "free": true,
+            "description": "This provisions a single Cassandra keyspace from the shared cluster, suitable for development workloads.",
+            "service_guid": "5b75afe7-930f-472d-8454-1cf1d54b37ef",
+            "extra": "{\"bullets\":[\"Provisions a single Cassandra keyspace from the shared cluster, suitable for development workloads.\"],\"displayName\":\"Development\"}",
+            "unique_id": "ABE176EE-F69F-4A96-80CE-142595CC24E3",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/5b75afe7-930f-472d-8454-1cf1d54b37ef",
+            "service_instances_url": "/v2/service_plans/046a2d1a-0f5c-4824-b9f2-d255f8ec5eb9/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "ac26ccf8-381e-40c8-a630-a0bb1b73275d",
+            "url": "/v2/service_plans/ac26ccf8-381e-40c8-a630-a0bb1b73275d",
+            "created_at": "2015-08-21T18:18:31Z",
+            "updated_at": "2016-03-24T19:08:18Z"
+         },
+         "entity": {
+            "name": "development",
+            "free": true,
+            "description": "This provisions a single MongoDB database from the shared cluster, suitable for development workloads.",
+            "service_guid": "d5fea80a-4fe4-45d3-8248-6b7f029ac3d2",
+            "extra": "{\"displayName\":\"Development\",\"bullets\":[\"Provisions a single MongoDB collection, suitable for development workloads.\"]}",
+            "unique_id": "581C84FD-6A3D-4A25-9679-C16318EE2830",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/d5fea80a-4fe4-45d3-8248-6b7f029ac3d2",
+            "service_instances_url": "/v2/service_plans/ac26ccf8-381e-40c8-a630-a0bb1b73275d/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "966f9892-a404-41ee-906d-d3627b2ca19c",
+            "url": "/v2/service_plans/966f9892-a404-41ee-906d-d3627b2ca19c",
+            "created_at": "2015-11-13T01:34:54Z",
+            "updated_at": "2016-03-24T19:59:51Z"
+         },
+         "entity": {
+            "name": "standard",
+            "free": true,
+            "description": "Standard Plan",
+            "service_guid": "f96bdbe6-154e-4a39-a2ea-7f90b5dcc209",
+            "extra": "{\"bullets\":[\"Single-tenant\",\"Netflix OSS Hystrix Dashboard\",\"Netflix OSS Turbine\"]}",
+            "unique_id": "00d13802-acc5-11e4-89d3-123b93f75cba",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f96bdbe6-154e-4a39-a2ea-7f90b5dcc209",
+            "service_instances_url": "/v2/service_plans/966f9892-a404-41ee-906d-d3627b2ca19c/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "6be277f5-d92f-4b3a-b489-8b36fd6fa833",
+            "url": "/v2/service_plans/6be277f5-d92f-4b3a-b489-8b36fd6fa833",
+            "created_at": "2015-11-13T01:34:54Z",
+            "updated_at": "2016-03-24T19:59:51Z"
+         },
+         "entity": {
+            "name": "standard",
+            "free": true,
+            "description": "Standard Plan",
+            "service_guid": "6a39d53a-cfb7-452d-ba53-ef7f2c0b3ba9",
+            "extra": "{\"bullets\":[\"Single-tenant\",\"Backed by user-provided Git repository\"]}",
+            "unique_id": "c2d8680f-69a3-48cf-99f4-66fdfdfd6170",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/6a39d53a-cfb7-452d-ba53-ef7f2c0b3ba9",
+            "service_instances_url": "/v2/service_plans/6be277f5-d92f-4b3a-b489-8b36fd6fa833/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "207ab6f1-ec1a-468a-8551-96a51d2c6d10",
+            "url": "/v2/service_plans/207ab6f1-ec1a-468a-8551-96a51d2c6d10",
+            "created_at": "2015-11-13T01:34:54Z",
+            "updated_at": "2016-03-24T19:59:51Z"
+         },
+         "entity": {
+            "name": "standard",
+            "free": true,
+            "description": "Standard Plan",
+            "service_guid": "e69fc3e1-8c3a-4fe3-95ad-32c9ba618f65",
+            "extra": "{\"bullets\":[\"Single-tenant\",\"Netflix OSS Eureka\"]}",
+            "unique_id": "541ae588-0af6-4e63-ba54-4f7a8972e30d",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/e69fc3e1-8c3a-4fe3-95ad-32c9ba618f65",
+            "service_instances_url": "/v2/service_plans/207ab6f1-ec1a-468a-8551-96a51d2c6d10/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "e55aa662-8491-42f1-a7ed-8a479214bd4c",
+            "url": "/v2/service_plans/e55aa662-8491-42f1-a7ed-8a479214bd4c",
+            "created_at": "2015-12-22T04:36:34Z",
+            "updated_at": "2015-12-22T04:36:36Z"
+         },
+         "entity": {
+            "name": "developer",
+            "free": true,
+            "description": "Shared Riak CS cluster, private buckets, no storage quota",
+            "service_guid": "92af5cbe-6e94-4b68-b6b3-59e50a35d24e",
+            "extra": "{\"costs\":[{\"amount\":{\"usd\":0.0},\"unit\":\"MONTH\"}],\"bullets\":[\"Not for production use\",\"Shared Riak CS cluster\",\"Buckets are private\",\"No storage quota\"],\"displayName\":\"Developer\"}",
+            "unique_id": "946ce484-376b-41b4-8c4e-4bc830676115",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/92af5cbe-6e94-4b68-b6b3-59e50a35d24e",
+            "service_instances_url": "/v2/service_plans/e55aa662-8491-42f1-a7ed-8a479214bd4c/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "ae21c728-0f53-48a0-bb3f-e140b1758579",
+            "url": "/v2/service_plans/ae21c728-0f53-48a0-bb3f-e140b1758579",
+            "created_at": "2016-01-26T06:33:40Z",
+            "updated_at": "2016-02-10T00:16:42Z"
+         },
+         "entity": {
+            "name": "default",
+            "free": true,
+            "description": "The Push Notification Service",
+            "service_guid": "1a6b78ac-c2ae-4f6d-a7fd-91abe6ba52b7",
+            "extra": "{\"bullets\":[\"The Push Notification Service\"],\"costs\":[{\"amount\":{\"usd\":0.0},\"unit\":\"MONTHLY\"}],\"displayName\":\"Default\"}",
+            "unique_id": "fc8d43af-8196-4da3-95cb-9a7c8ac7bf35",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/1a6b78ac-c2ae-4f6d-a7fd-91abe6ba52b7",
+            "service_instances_url": "/v2/service_plans/ae21c728-0f53-48a0-bb3f-e140b1758579/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "92a86ab8-7ea0-4eec-9004-1513c82313de",
+            "url": "/v2/service_plans/92a86ab8-7ea0-4eec-9004-1513c82313de",
+            "created_at": "2016-02-01T18:10:48Z",
+            "updated_at": "2016-03-24T19:21:46Z"
+         },
+         "entity": {
+            "name": "standard",
+            "free": true,
+            "description": "Provides a multi-tenant RabbitMQ cluster",
+            "service_guid": "cb83a690-2927-4cda-ba2f-66453f4499b5",
+            "extra": "{\"displayName\":\"Standard\",\"costs\":[{\"amount\":{\"usd\":0.0},\"unit\":\"MONTHLY\"}],\"bullets\":[\"RabbitMQ 3.5.7\",\"Multi-tenant\"]}",
+            "unique_id": "4e816145-4e71-4e24-a402-0c686b868e2d",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/cb83a690-2927-4cda-ba2f-66453f4499b5",
+            "service_instances_url": "/v2/service_plans/92a86ab8-7ea0-4eec-9004-1513c82313de/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "62c065db-96c8-4186-a499-e4cdac41c0fa",
+            "url": "/v2/service_plans/62c065db-96c8-4186-a499-e4cdac41c0fa",
+            "created_at": "2016-03-22T18:53:15Z",
+            "updated_at": "2016-03-22T19:08:24Z"
+         },
+         "entity": {
+            "name": "uaa-only",
+            "free": true,
+            "description": "UAA only",
+            "service_guid": "cadb0dcd-91b7-4c02-8c6b-6cfee0200569",
+            "extra": "{\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"displayName\":\"uaa-only\",\"bullets\":[\"UAA only\",\"Secure access to your applications\",\"Enable single-sign-on\",\"Integrate with existing user stores and identity providers\"]}",
+            "unique_id": "f8349a97-2584-4df4-8358-c8ad1495e4a5",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/cadb0dcd-91b7-4c02-8c6b-6cfee0200569",
+            "service_instances_url": "/v2/service_plans/62c065db-96c8-4186-a499-e4cdac41c0fa/service_instances"
+         }
+      }
+   ]
+}

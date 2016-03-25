@@ -1,135 +1,118 @@
 package main
 
 import (
-	"errors"
+	"io/ioutil"
+	"strings"
+	"testing"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
+	"github.com/cloudfoundry/cli/plugin/fakes"
 )
 
-var _ = Describe("Usagereport", func() {
-	var fakeAPI *fakes.FakeCFAPIHelper
-	var cmd *UsageReportCmd
+func TestGetServicePlans(t *testing.T) {
+	conn := new(fakes.FakeCliConnection)
 
-	BeforeEach(func() {
-		fakeAPI = &fakes.FakeCFAPIHelper{}
-		cmd = &UsageReportCmd{apiHelper: fakeAPI}
-	})
+	content, fileReadErr := readFile("test-data/service_plans.json")
 
-	Describe("get org errors", func() {
+	if fileReadErr != nil {
+		panic("Failed to read file: " + fileReadErr.Error())
+	}
 
-		It("should return an error if cf curl /v2/organizations fails", func() {
-			fakeAPI.GetOrgsReturns(nil, errors.New("Bad Things"))
-			_, err := cmd.getOrgs()
-			Expect(err).ToNot(BeNil())
-		})
+	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-		Context("good org bad other thigns", func() {
-			BeforeEach(func() {
-				fakeAPI.GetOrgsReturns([]apihelper.Organization{apihelper.Organization{}}, nil)
-			})
+	cmd := new(ServiceReportCmd)
 
-			It("should return an error if cf curl /v2/organizations/{guid}/memory_usage fails", func() {
-				fakeAPI.GetOrgMemoryUsageReturns(0, errors.New("Bad Things"))
-				_, err := cmd.getOrgs()
-				Expect(err).ToNot(BeNil())
-			})
+	servicePlans, err := cmd.getServicePlans(conn)
 
-			It("sholud return an error if cf curl to the quota url fails", func() {
-				fakeAPI.GetQuotaMemoryLimitReturns(0, errors.New("Bad Things"))
-				_, err := cmd.getOrgs()
-				Expect(err).ToNot(BeNil())
-			})
+	if err != nil {
+		t.Errorf("getServicePlans return an error: %v", err.Error())
+	}
 
-			It("should return an error if cf curl to get org spaces fails", func() {
-				fakeAPI.GetOrgSpacesReturns(nil, errors.New("Bad Things"))
-				_, err := cmd.getOrgs()
-				Expect(err).ToNot(BeNil())
-				Expect(fakeAPI.GetOrgSpacesCallCount()).To(Equal(1))
-			})
+	if len(servicePlans.Resources) == 0 {
+		t.Errorf("Expected at least one service plan from the test data, but there was %v", len(servicePlans.Resources))
+	}
 
-			It("Should return an error if cf curl to get the apps in a space fails", func() {
-				fakeAPI.GetOrgSpacesReturns(
-					[]apihelper.Space{apihelper.Space{AppsURL: "/v2/apps"}}, nil)
-				fakeAPI.GetSpaceAppsReturns(nil, errors.New("Bad Things"))
-				_, err := cmd.getOrgs()
-				Expect(err).ToNot(BeNil())
-				Expect(fakeAPI.GetSpaceAppsCallCount()).To(Equal(1))
-			})
-		})
-
-	})
-
-	Describe("Get org composes the values correctly", func() {
-		org := apihelper.Organization{
-			URL:      "/v2/organizations/1234",
-			QuotaURL: "/v2/quotas/2345",
+	for _, servicePlanResource := range servicePlans.Resources {
+		if servicePlanResource.Entity.Name == "" {
+			t.Error("Name was empty on ServicePlan")
 		}
 
-		BeforeEach(func() {
-			fakeAPI.GetOrgsReturns([]apihelper.Organization{org}, nil)
-		})
+		if servicePlanResource.Entity.ServiceInstancesURL == "" {
+			t.Error("ServiceInstancesURL was empty on ServicePlan")
+		}
+	}
+}
 
-		It("should return two one org using 1 mb of 2 mb quota", func() {
-			fakeAPI.GetOrgMemoryUsageReturns(float64(1), nil)
-			fakeAPI.GetQuotaMemoryLimitReturns(float64(2), nil)
-			orgs, err := cmd.getOrgs()
-			Expect(err).To(BeNil())
-			Expect(len(orgs)).To(Equal(1))
-			org := orgs[0]
-			Expect(org.memoryQuota).To(Equal(2))
-			Expect(org.memoryUsage).To(Equal(1))
-		})
+func TestGetOrgs(t *testing.T) {
+	conn := new(fakes.FakeCliConnection)
 
-		It("Should return an org with 1 space", func() {
-			fakeAPI.GetOrgSpacesReturns(
-				[]apihelper.Space{apihelper.Space{}, apihelper.Space{}}, nil)
-			orgs, _ := cmd.getOrgs()
-			Expect(len(orgs[0].spaces)).To(Equal(2))
-		})
+	content, fileReadErr := readFile("test-data/orgs.json")
 
-		It("Should not choke on an org with no spaces", func() {
-			fakeAPI.GetOrgSpacesReturns(
-				[]apihelper.Space{}, nil)
-			orgs, _ := cmd.getOrgs()
-			Expect(len(orgs[0].spaces)).To(Equal(0))
-		})
+	if fileReadErr != nil {
+		panic("Failed to read file: " + fileReadErr.Error())
+	}
 
-		It("Should return two apps from a space", func() {
-			fakeAPI.GetOrgSpacesReturns(
-				[]apihelper.Space{apihelper.Space{}}, nil)
+	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-			fakeAPI.GetSpaceAppsReturns(
-				[]apihelper.App{
-					apihelper.App{},
-					apihelper.App{},
-					apihelper.App{},
-				},
-				nil)
-			orgs, _ := cmd.getOrgs()
-			org := orgs[0]
-			space := org.spaces[0]
-			apps := space.apps
-			Expect(len(apps)).To(Equal(3))
-		})
+	cmd := new(ServiceReportCmd)
 
-		It("Should mark the first app as running, the second as stopped", func() {
-			fakeAPI.GetOrgSpacesReturns(
-				[]apihelper.Space{apihelper.Space{}}, nil)
+	orgs, err := cmd.getOrgs(conn)
 
-			fakeAPI.GetSpaceAppsReturns(
-				[]apihelper.App{
-					apihelper.App{Running: true},
-					apihelper.App{Running: false},
-				},
-				nil)
+	if err != nil {
+		t.Errorf("getOrgs Returned an error: %v", err.Error())
+	}
 
-			orgs, _ := cmd.getOrgs()
-			org := orgs[0]
-			space := org.spaces[0]
-			apps := space.apps
-			Expect(apps[0].running).To(BeTrue())
-			Expect(apps[1].running).To(BeFalse())
-		})
-	})
-})
+	if len(orgs.Resources) == 0 {
+		t.Error("expected at least one result from getOrgs")
+	}
+
+	for _, orgResource := range orgs.Resources {
+		if orgResource.Entity.Name == "" {
+			t.Error("Name was null on OrgResource.Entity")
+		}
+	}
+}
+
+func TestGetServices(t *testing.T) {
+	conn := new(fakes.FakeCliConnection)
+
+	content, fileReadErr := readFile("test-data/org_services.json")
+
+	if fileReadErr != nil {
+		panic("Failed to read file: " + fileReadErr.Error())
+	}
+
+	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
+
+	cmd := new(ServiceReportCmd)
+
+	orgResource := new(orgResource)
+	org := new(org)
+	org.Name = "test-org"
+	resourceMetadata := new(resourceMetadata)
+	resourceMetadata.GUID = "abc123"
+	orgResource.Entity = *org
+	orgResource.Metadata = *resourceMetadata
+
+	services, err := cmd.getServices(conn, *orgResource)
+
+	if err != nil {
+		t.Errorf("getServices Returned an error: %v", err.Error())
+	}
+
+	if len(services.Resources) == 0 {
+		t.Error("expected at least one result from getServices")
+	}
+
+	for _, serviceResource := range services.Resources {
+		if serviceResource.Entity.Label == "" {
+			t.Error("Label was blank on Service")
+		}
+	}
+
+}
+
+func readFile(filename string) ([]string, error) {
+	content, err := ioutil.ReadFile(filename)
+	lines := strings.Split(string(content), "\n")
+	return lines, err
+}
