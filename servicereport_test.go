@@ -21,7 +21,11 @@ func TestGetServicePlans(t *testing.T) {
 
 	cmd := new(ServiceReportCmd)
 
-	servicePlans, err := cmd.getServicePlans(conn)
+	service := new(service)
+	service.Label = "test-service"
+	service.ServicePlansURL = "/v2/services/test-guid/service_plans"
+
+	servicePlans, err := cmd.getServicePlans(conn, *service)
 
 	if err != nil {
 		t.Errorf("getServicePlans return an error: %v", err.Error())
@@ -38,6 +42,44 @@ func TestGetServicePlans(t *testing.T) {
 
 		if servicePlanResource.Entity.ServiceInstancesURL == "" {
 			t.Error("ServiceInstancesURL was empty on ServicePlan")
+		}
+	}
+}
+
+func TestGetServiceBindings(t *testing.T) {
+	conn := new(fakes.FakeCliConnection)
+
+	content, fileReadErr := readFile("test-data/service_bindings.json")
+
+	if fileReadErr != nil {
+		panic("Failed to read file: " + fileReadErr.Error())
+	}
+
+	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
+
+	cmd := new(ServiceReportCmd)
+
+	serviceInstance := new(serviceInstance)
+	serviceInstance.Name = "test-service-instance"
+	serviceInstance.ServiceBindingsURL = "/v2/service_instances/:service-instance-guid/service_bindings"
+
+	serviceBindings, err := cmd.getServiceBindings(conn, *serviceInstance)
+
+	if err != nil {
+		t.Errorf("getServiceBindings return an error: %v", err.Error())
+	}
+
+	if len(serviceBindings.Resources) == 0 {
+		t.Errorf("Expected at least one service binding from the test data, but there was %v", len(serviceBindings.Resources))
+	}
+
+	for _, serviceBindingResource := range serviceBindings.Resources {
+		if serviceBindingResource.Entity.AppGUID == "" {
+			t.Error("AppGUID was empty on serviceBinding")
+		}
+
+		if serviceBindingResource.Entity.AppURL == "" {
+			t.Error("AppURL was empty on serviceBinding")
 		}
 	}
 }
@@ -109,6 +151,53 @@ func TestGetServices(t *testing.T) {
 		}
 	}
 
+}
+
+func TestGetServiceInstances(t *testing.T) {
+	conn := new(fakes.FakeCliConnection)
+
+	content, fileReadErr := readFile("test-data/service_instances.json")
+
+	if fileReadErr != nil {
+		panic("Failed to read file: " + fileReadErr.Error())
+	}
+
+	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
+
+	cmd := new(ServiceReportCmd)
+
+	servicePlanResource := new(servicePlanResource)
+	servicePlan := new(servicePlan)
+	servicePlan.Name = "test-org"
+	servicePlan.ServiceInstancesURL = "/v2/service_instances/:guid/service_bindings"
+	resourceMetadata := new(resourceMetadata)
+	resourceMetadata.GUID = "abc123"
+	servicePlanResource.Entity = *servicePlan
+	servicePlanResource.Metadata = *resourceMetadata
+
+	serviceInstances, err := cmd.getServiceInstances(conn, *servicePlanResource)
+
+	if err != nil {
+		t.Errorf("getServiceInstances return an error: %v", err.Error())
+	}
+
+	if len(serviceInstances.Resources) == 0 {
+		t.Errorf("Expected at least one service instance from the test data, but there was %v", len(serviceInstances.Resources))
+	}
+
+	for _, serviceInstanceResource := range serviceInstances.Resources {
+		if serviceInstanceResource.Entity.Name == "" {
+			t.Error("Name was empty on ServiceInstance")
+		}
+
+		if serviceInstanceResource.Entity.Type == "" {
+			t.Error("Type was empty on ServiceInstance")
+		}
+
+		if serviceInstanceResource.Entity.ServiceBindingsURL == "" {
+			t.Error("ServiceBindingsURL was empty on ServiceInstance")
+		}
+	}
 }
 
 func readFile(filename string) ([]string, error) {

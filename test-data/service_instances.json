@@ -1,0 +1,68 @@
+{
+   "total_results": 2,
+   "total_pages": 1,
+   "prev_url": null,
+   "next_url": null,
+   "resources": [
+      {
+         "metadata": {
+            "guid": "4e2de295-b906-4e6e-bec4-94ec1e1ef378",
+            "url": "/v2/service_instances/4e2de295-b906-4e6e-bec4-94ec1e1ef378",
+            "created_at": "2015-10-28T20:12:28Z",
+            "updated_at": "2015-10-30T16:15:22Z"
+         },
+         "entity": {
+            "name": "inventory-db",
+            "credentials": {},
+            "service_plan_guid": "5aff451a-37a4-4ec5-bf36-b5ec7dcff919",
+            "space_guid": "d16fd8e8-2d7e-473b-9c82-d9c2025ff6fd",
+            "gateway_data": null,
+            "dashboard_url": "https://p-mysql.run.pez.pivotal.io/manage/instances/4e2de295-b906-4e6e-bec4-94ec1e1ef378",
+            "type": "managed_service_instance",
+            "last_operation": {
+               "type": "create",
+               "state": "succeeded",
+               "description": "",
+               "updated_at": "2015-10-30T16:15:23Z",
+               "created_at": "2015-10-28T20:12:28Z"
+            },
+            "tags": [],
+            "space_url": "/v2/spaces/d16fd8e8-2d7e-473b-9c82-d9c2025ff6fd",
+            "service_plan_url": "/v2/service_plans/5aff451a-37a4-4ec5-bf36-b5ec7dcff919",
+            "service_bindings_url": "/v2/service_instances/4e2de295-b906-4e6e-bec4-94ec1e1ef378/service_bindings",
+            "service_keys_url": "/v2/service_instances/4e2de295-b906-4e6e-bec4-94ec1e1ef378/service_keys",
+            "routes_url": "/v2/service_instances/4e2de295-b906-4e6e-bec4-94ec1e1ef378/routes"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "7dc21872-eec4-4185-8354-77543f9f3008",
+            "url": "/v2/service_instances/7dc21872-eec4-4185-8354-77543f9f3008",
+            "created_at": "2015-10-28T20:12:58Z",
+            "updated_at": "2015-10-30T16:15:07Z"
+         },
+         "entity": {
+            "name": "product-db",
+            "credentials": {},
+            "service_plan_guid": "5aff451a-37a4-4ec5-bf36-b5ec7dcff919",
+            "space_guid": "d16fd8e8-2d7e-473b-9c82-d9c2025ff6fd",
+            "gateway_data": null,
+            "dashboard_url": "https://p-mysql.run.pez.pivotal.io/manage/instances/7dc21872-eec4-4185-8354-77543f9f3008",
+            "type": "managed_service_instance",
+            "last_operation": {
+               "type": "create",
+               "state": "succeeded",
+               "description": "",
+               "updated_at": "2015-10-30T16:15:07Z",
+               "created_at": "2015-10-28T20:12:58Z"
+            },
+            "tags": [],
+            "space_url": "/v2/spaces/d16fd8e8-2d7e-473b-9c82-d9c2025ff6fd",
+            "service_plan_url": "/v2/service_plans/5aff451a-37a4-4ec5-bf36-b5ec7dcff919",
+            "service_bindings_url": "/v2/service_instances/7dc21872-eec4-4185-8354-77543f9f3008/service_bindings",
+            "service_keys_url": "/v2/service_instances/7dc21872-eec4-4185-8354-77543f9f3008/service_keys",
+            "routes_url": "/v2/service_instances/7dc21872-eec4-4185-8354-77543f9f3008/routes"
+         }
+      }
+   ]
+}

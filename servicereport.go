@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"text/tabwriter"
 
 	"github.com/cloudfoundry/cli/plugin"
 )
@@ -30,6 +31,11 @@ type services struct {
 type servicePlans struct {
 	*pagedResponse
 	Resources []servicePlanResource `json:"resources"`
+}
+
+type serviceInstances struct {
+	*pagedResponse
+	Resources []serviceInstanceResource `json:"resources"`
 }
 
 type serviceBindings struct {
@@ -65,6 +71,11 @@ type servicePlanResource struct {
 	Metadata resourceMetadata `json:"metadata"`
 }
 
+type serviceInstanceResource struct {
+	Entity   serviceInstance  `json:"entity"`
+	Metadata resourceMetadata `json:"metadata"`
+}
+
 type serviceBindingResource struct {
 	Entity   serviceBinding   `json:"entity"`
 	Metadata resourceMetadata `json:"metadata"`
@@ -75,12 +86,19 @@ type org struct {
 }
 
 type service struct {
-	Label string `json:"label"`
+	Label           string `json:"label"`
+	ServicePlansURL string `json:"service_plans_url"`
 }
 
 type servicePlan struct {
 	Name                string `json:"name"`
 	ServiceInstancesURL string `json:"service_instances_url"`
+}
+
+type serviceInstance struct {
+	Name               string `json:"name"`
+	Type               string `json:"type"`
+	ServiceBindingsURL string `json:"service_bindings_url"`
 }
 
 type serviceBinding struct {
@@ -143,16 +161,9 @@ func (cmd *ServiceReportCmd) Run(cli plugin.CliConnection, args []string) {
 }
 
 func (cmd *ServiceReportCmd) printServiceUsageReport(cli plugin.CliConnection) {
-	servicePlans, err := cmd.getServicePlans(cli)
-
-	if err != nil {
-		fmt.Println("Failed to retreive service plans: " + err.Error())
-		return
-	}
-
-	for _, servicePlanResource := range servicePlans.Resources {
-		fmt.Printf("Service Plan: %s \n", servicePlanResource.Entity.Name)
-	}
+	w := new(tabwriter.Writer)
+	w.Init(os.Stdout, 0, 8, 2, '\t', 0)
+	fmt.Fprintln(w, "Org\tService Instances\tBound Apps")
 
 	orgs, err := cmd.getOrgs(cli)
 
@@ -162,7 +173,7 @@ func (cmd *ServiceReportCmd) printServiceUsageReport(cli plugin.CliConnection) {
 	}
 
 	for _, orgResource := range orgs.Resources {
-		fmt.Printf("org: %s\n", orgResource.Entity.Name)
+		var orgServiceInstances, boundApps string
 
 		services, err := cmd.getServices(cli, orgResource)
 		if err != nil {
@@ -171,16 +182,59 @@ func (cmd *ServiceReportCmd) printServiceUsageReport(cli plugin.CliConnection) {
 		}
 
 		for _, serviceResource := range services.Resources {
-			fmt.Println("Service: " + serviceResource.Entity.Label)
+			servicePlans, err := cmd.getServicePlans(cli, serviceResource.Entity)
+
+			if err != nil {
+				fmt.Println("Failed to retreive service plans: " + err.Error())
+				return
+			}
+
+			for _, servicePlanResource := range servicePlans.Resources {
+				serviceInstances, err := cmd.getServiceInstances(cli, servicePlanResource)
+
+				if err != nil {
+					fmt.Println("Failed to retreive service instances: " + err.Error())
+					return
+				}
+
+				for _, serviceInstanceResource := range serviceInstances.Resources {
+					if orgServiceInstances != "" {
+						orgServiceInstances = fmt.Sprintf("%s, %s", orgServiceInstances, serviceInstanceResource.Entity.Name)
+					} else {
+						orgServiceInstances = serviceInstanceResource.Entity.Name
+					}
+
+					serviceBindings, err := cmd.getServiceBindings(cli, serviceInstanceResource.Entity)
+
+					if err != nil {
+						fmt.Println("Failed to retreive service bindings: " + err.Error())
+						return
+					}
+
+					for _, serviceBindingResource := range serviceBindings.Resources {
+						if boundApps != "" {
+							boundApps = fmt.Sprintf("%s, %s", boundApps, serviceBindingResource.Entity.AppGUID)
+						} else {
+							boundApps = serviceBindingResource.Entity.AppGUID
+						}
+					}
+				}
+			}
+
 		}
+
+		fmt.Fprintf(w, "%v\t%v\t%v\n", orgResource.Entity.Name, orgServiceInstances, boundApps)
 	}
+
+	fmt.Fprintln(w)
+	w.Flush()
 
 }
 
-func (cmd *ServiceReportCmd) getServicePlans(cli plugin.CliConnection) (servicePlans, error) {
+func (cmd *ServiceReportCmd) getServicePlans(cli plugin.CliConnection, service service) (servicePlans, error) {
 	var servicePlans servicePlans
 
-	data, err := cmd.cfcurl(cli, "/v2/service_plans")
+	data, err := cmd.cfcurl(cli, service.ServicePlansURL)
 
 	if nil != err {
 		return servicePlans, err
@@ -232,6 +286,44 @@ func (cmd *ServiceReportCmd) getServices(cli plugin.CliConnection, orgResource o
 	}
 
 	return services, err
+}
+
+func (cmd *ServiceReportCmd) getServiceInstances(cli plugin.CliConnection, servicePlanResource servicePlanResource) (serviceInstances, error) {
+	var serviceInstances serviceInstances
+
+	data, err := cmd.cfcurl(cli, servicePlanResource.Entity.ServiceInstancesURL)
+
+	if nil != err {
+		return serviceInstances, err
+	}
+
+	err = json.Unmarshal(data, &serviceInstances)
+
+	if nil != err {
+		fmt.Println("Failed to parse json: ", err.Error())
+		return serviceInstances, err
+	}
+
+	return serviceInstances, err
+}
+
+func (cmd *ServiceReportCmd) getServiceBindings(cli plugin.CliConnection, serviceInstance serviceInstance) (serviceBindings, error) {
+	var serviceBindings serviceBindings
+
+	data, err := cmd.cfcurl(cli, serviceInstance.ServiceBindingsURL)
+
+	if nil != err {
+		return serviceBindings, err
+	}
+
+	err = json.Unmarshal(data, &serviceBindings)
+
+	if nil != err {
+		fmt.Println("Failed to parse json: ", err.Error())
+		return serviceBindings, err
+	}
+
+	return serviceBindings, err
 }
 
 func (cmd *ServiceReportCmd) cfcurl(cli plugin.CliConnection, cliCommandArgs ...string) (data []byte, err error) {
