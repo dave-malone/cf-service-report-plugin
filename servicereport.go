@@ -163,7 +163,7 @@ func (cmd *ServiceReportCmd) Run(cli plugin.CliConnection, args []string) {
 func (cmd *ServiceReportCmd) printServiceUsageReport(cli plugin.CliConnection) {
 	w := new(tabwriter.Writer)
 	w.Init(os.Stdout, 0, 8, 2, '\t', 0)
-	fmt.Fprintln(w, "Org\tService Instances\tBound Apps")
+	fmt.Fprintln(w, "Org\tService Instances\tBound App GUIDs")
 
 	orgs, err := cmd.getOrgs(cli)
 
