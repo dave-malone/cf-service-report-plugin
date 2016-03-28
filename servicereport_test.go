@@ -19,13 +19,11 @@ func TestGetServicePlans(t *testing.T) {
 
 	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-	cmd := new(ServiceReportCmd)
-
 	service := new(service)
 	service.Label = "test-service"
 	service.ServicePlansURL = "/v2/services/test-guid/service_plans"
 
-	servicePlans, err := cmd.getServicePlans(conn, *service)
+	servicePlans, err := getServicePlans(conn, *service)
 
 	if err != nil {
 		t.Errorf("getServicePlans return an error: %v", err.Error())
@@ -57,13 +55,11 @@ func TestGetServiceBindings(t *testing.T) {
 
 	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-	cmd := new(ServiceReportCmd)
-
 	serviceInstance := new(serviceInstance)
 	serviceInstance.Name = "test-service-instance"
 	serviceInstance.ServiceBindingsURL = "/v2/service_instances/:service-instance-guid/service_bindings"
 
-	serviceBindings, err := cmd.getServiceBindings(conn, *serviceInstance)
+	serviceBindings, err := getServiceBindings(conn, *serviceInstance)
 
 	if err != nil {
 		t.Errorf("getServiceBindings return an error: %v", err.Error())
@@ -95,9 +91,7 @@ func TestGetOrgs(t *testing.T) {
 
 	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-	cmd := new(ServiceReportCmd)
-
-	orgs, err := cmd.getOrgs(conn)
+	orgs, err := getOrgs(conn)
 
 	if err != nil {
 		t.Errorf("getOrgs Returned an error: %v", err.Error())
@@ -125,8 +119,6 @@ func TestGetServices(t *testing.T) {
 
 	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-	cmd := new(ServiceReportCmd)
-
 	orgResource := new(orgResource)
 	org := new(org)
 	org.Name = "test-org"
@@ -135,7 +127,7 @@ func TestGetServices(t *testing.T) {
 	orgResource.Entity = *org
 	orgResource.Metadata = *resourceMetadata
 
-	services, err := cmd.getServices(conn, *orgResource)
+	services, err := getServices(conn, *orgResource)
 
 	if err != nil {
 		t.Errorf("getServices Returned an error: %v", err.Error())
@@ -164,8 +156,6 @@ func TestGetServiceInstances(t *testing.T) {
 
 	conn.CliCommandWithoutTerminalOutputReturns(content, nil)
 
-	cmd := new(ServiceReportCmd)
-
 	servicePlanResource := new(servicePlanResource)
 	servicePlan := new(servicePlan)
 	servicePlan.Name = "test-org"
@@ -175,7 +165,7 @@ func TestGetServiceInstances(t *testing.T) {
 	servicePlanResource.Entity = *servicePlan
 	servicePlanResource.Metadata = *resourceMetadata
 
-	serviceInstances, err := cmd.getServiceInstances(conn, *servicePlanResource)
+	serviceInstances, err := getServiceInstances(conn, *servicePlanResource)
 
 	if err != nil {
 		t.Errorf("getServiceInstances return an error: %v", err.Error())
